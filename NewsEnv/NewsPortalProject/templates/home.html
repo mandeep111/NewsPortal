@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>hello world</h1>
+{% for category in  categorys %}
+{{category.category_name}}
+{% for subcategory in category.subcategory_set.all %}
+<li>{{subcategory.sub_name}}</li>
+{% endfor %}
+{% endfor %}
+{% endblock %}
