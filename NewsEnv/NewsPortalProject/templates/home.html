@@ -1,10 +1,182 @@
 {% extends 'base.html' %}
+
 {% block content %}
-<h1>hello world</h1>
-{% for category in  categorys %}
-{{category.category_name}}
-{% for subcategory in category.subcategory_set.all %}
-<li>{{subcategory.sub_name}}</li>
-{% endfor %}
-{% endfor %}
+<html>
+
+<head>
+    <title>Home Page</title>
+    <meta charset="utf-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+
+    <style>
+        .footer {
+            position: -webkit-sticky;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body> 
+    <div class="container-fluid">
+        <!-- <div class="col-sm-12">
+            <img class="img-fluid" src="https://media.laodong.vn/Storage/NewsPortal/2020/3/2/788104/Giao-Chu-Tan-Thien-D.jpg?w=720&crop=auto&scale=both" style="width: 100%;">
+            <h1>नारी दिवसको अवसरमा एनआईसीको महिला ग्राहक योजना</h1>
+            <p class="lead">यस योजनाअन्तर्गत यस वर्षको नारी दिवसका दिन अर्थात फागुन २५ गते बैंकको मोबाइल बैंकिङ्ग प्रयोग गरी कारोबार गर्ने १०० जना भाग्यशाली महिलाहरूले १०० प्रतिशत वा १०,०००सम्म नगद फिर्ता प्राप्त गर्न सक्नेछन् । </p>
+            <p><a href="https://www.tutorialrepublic.com" target="_blank" class="btn btn-success btn-lg">More</a></p>
+        </div> -->
+
+        <div class="col-sm-12">
+
+            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#myCarousel" data-slide-to="1"></li>
+                    <li data-target="#myCarousel" data-slide-to="2"></li>
+                </ol>
+
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner">
+                    <!-- 
+
+                    <div class="item">
+                        <img src="https://1hu9t72zwflj44abyp2h0pfe-wpengine.netdna-ssl.com/wp-content/uploads/2016/03/Nepali-migrant-workers-in-TIA.jpg"
+                            alt="Chicago" style="width:100%;">
+                    </div>
+
+                    <div class="item">
+                        <img src="https://i.ytimg.com/vi/qz0VcJNYDiA/maxresdefault.jpg" alt="New york"
+                            style="width:100%;">
+                    </div> -->
+                    <div class="item active">
+                        <img src="https://ichef.bbci.co.uk/news/1024/branded_nepali/0EA0/production/_95944730__95940853_germanarmy.jpg"
+                            alt="Los Angeles" style="width:100%;">
+                    </div>
+                    {% for news in shelf|slice:'2' %}
+                    <div class="item">
+                        <img src="{{news.news_image.url}}" alt="image" style="width: 100%;">
+                    </div>
+                  
+                   
+                   
+                    {% endfor %}
+                    
+                </div>
+
+                <!-- Left and right controls -->
+                <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+            <hr>
+            <hr>
+        </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-9">
+                <div class="row">
+                    {% for news in  shelf %}
+
+                    <div class="col-sm-6">
+                        <hr>
+                        <h3>{{news.Category.category_name}}</h3>
+                        <hr>
+                        <a href="#">
+                            <img class="img-fluid" src="{{news.news_image.url}}" style="height: 220px;">
+                        </a>
+                        <hr>
+                        <a class="links" href="#">
+                            <h2>{{news.news_title}}</h2>
+                        </a>
+                        <span>{{news.SubCategory.sub_name}}</span><br>
+                        <span>{{news.created_date | date}}</span>
+                        <p>{{news.news_content | truncatewords:20}}</p>
+                        <a href="detail/{{news.id}}" target="_blank" class="btn btn-success btn-lg">More</a>
+                        <hr>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-sm-3" style="text-align: right;">
+
+                <div class="jumbotron">
+                                    <!-- Grid column -->
+                <div>
+
+                    <!-- Links -->
+                    <h3>आज तपाईंको भाग्यफल कस्तो छ ?</h3>
+
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="#!">खेलकुद</a>
+                        </li>
+                        <li>
+                            <a href="#!">मनोरञ्जन</a>
+                        </li>
+                        <li>
+                            <a href="#!">विज्ञान/प्रविधि</a>
+                        </li>
+                        <li>
+                            <a href="#!">शिक्षा</a>
+                        </li>
+                    </ul>
+
+                </div>
+                <hr>
+                <div>
+
+                    <!-- Links -->
+                    <h3>लिङ्कहरू </h3>
+                    <ul class="list-unstyled">
+                        {% for news in categorys %}
+                        <li>
+                            <a href="#!">{{news.category_name}}</a>
+                        </li>
+                        {% endfor %}
+                        <!-- <li>
+                            <a href="#!">हेडलाइन</a>
+                        </li>
+                        <li>
+                            <a href="#!">अर्थतन्त्र</a>
+                        </li>
+                        <li>
+                            <a href="#!">लोकसेवा</a>
+                        </li> -->
+                    </ul>
+
+                </div>
+                <!-- Grid column -->
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </div>
+    <footer class="footer" style="text-align: center;">
+        <ul class="pagination">
+            {% if shelf.has_previous %}
+            <li class="page-item"> <a class="page-link" href="?page=1">&laquo; first</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ shelf.previous_page_number }}">Previous</a></li>
+            {%endif%}
+            <li class="page-item">
+                <span class="page-link">Page {{ shelf.number }} of {{ shelf.paginator.num_pages }}.</span>
+            </li>
+            {%if shelf.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ shelf.next_page_number }}">Next</a></li>
+            {%endif%}
+        </ul>
+    </footer>
+    </div>
+</body>
+
+</html>
 {% endblock %}

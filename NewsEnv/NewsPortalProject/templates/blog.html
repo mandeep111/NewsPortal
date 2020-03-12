@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{category.category_name}}</h1>
+{% for news in category.news_set.all %}
+{{news.news_title}}
+<img src="{{news.image.url}}">
+{% endfor %}
+
+
+{% endblock %}
