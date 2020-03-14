@@ -28,7 +28,7 @@ class News(TimeStamp):
     news_content = models.TextField()
     news_image = models.ImageField(upload_to="news")
     news_author = models.CharField(max_length=100)
-    views_count = models.PositiveIntegerField(default = "0")
+    views_count = models.PositiveIntegerField(default = "1")
 
     def __str__(self):
         return self.news_title

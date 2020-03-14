@@ -4,7 +4,7 @@
 
 <head>
     <title>News Portal Home</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -14,24 +14,35 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> -->
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
     <link rel="stylesheet" href="{% static 'css/index.css' %}" />
 
+    <style>
+        .footer {
+            position: -webkit-sticky;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body>
-    
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">  
+
+    <!-- <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">  
         <div class="container-fluid">  
-           <a class="navbar-brand" href="#"> <i class="fa fa-Heart " style="color:white;font-size: 30px;">News Portal</i></a>  
+           <a class="navbar-brand" href="/"> <i class="fa fa-Heart " style="color:white;font-size: 30px;">पूर्वेली न्यूज </i></a>  
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mynav">  
             <span class="navbar-toggler-icon"></span></button>  
               
@@ -40,7 +51,7 @@
                     
                    <li class="nav-item active" >  
                       
-                    <a  class="nav-link" href="#">मुख्य समाचार</a>  
+                    <a  class="nav-link" href="/">मुख्य समाचार</a>  
                     </li> 
                     {% for category in categorys %} 
                     <li class="nav-item " >  
@@ -50,17 +61,49 @@
                     </li>  
                     {% endfor %}
                    
-                    </ul>  
+                    <form>
+                        <input type="text" placeholder="search...">
+                        <input type="button" value="Search">
+                    </form>
+                   </ul> 
+                    
                  </div>
-                 <!-- <div class="navbar-nav ml-auto">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search">
+               
+                
+                </div></nav> -->
+
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-3">
+        <div class="container-fluid">
+            <a href="/" class="navbar-brand mr-3">पूर्वेली न्यूज</a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav">
+                    <li class="nav" >                      
+                        <a  class="nav-link" href="/">मुख्य समाचार</a>  
+                        </li> 
+                    {% for category in categorys %}
+                    <li class="nav-item ">
+
+                        <a class="nav-link" href="{% url 'News:blog' category.id %}">{{category.category_name}}</a>
+                    </li>
+                    {% endfor %}
+                </div>
+
+                <div class="navbar-nav ml-auto">
+                    <div >
+                        <form class="input-group" method="GET" action="">
+                            <input type="text" class="form-control" placeholder="Search">
                         <div class="input-group-append">
                             <button type="button" class="btn btn-secondary"><i class="fa fa-search"></i></button>
+                        </form>
                         </div>
                     </div>
-                </div> -->
-                </div></nav>
+                </div>
+            </div>
+        </div>
+    </nav>
     {% block content %}
     {% endblock %}
 
@@ -74,11 +117,11 @@
             <div class="row">
 
                 <!-- Grid column -->
-                <div class="col-md-6 mt-md-0 mt-3">
+                <div class="col-md-4 mt-md-0 mt-3">
 
                     <!-- Content -->
                     <hr>
-                    <h5 class="text-uppercase">Footer Content</h5>
+                    <h3 class="text-uppercase">पूर्वेली न्यूज</h3>
                     <p>Here you can use rows and columns to organize your footer content.</p>
 
                 </div>
@@ -87,41 +130,34 @@
                 <hr class="clearfix w-100 d-md-none pb-3">
 
                 <!-- Grid column -->
-                <div class="col-md-3 mb-md-0 mb-3">
+                <div class="col-md-4 mb-md-0 mb-4">
 
                     <!-- Links -->
                     <h4 class="text-uppercase">लिङ्कहरू </h4>
                     <ul class="list-unstyled">
-                        {% for news in latestnews|slice:'3' %}
+                        {% for news in latestnews|slice:'4' %}
                         <li>
                             <a href="{% url 'News:newsdetail' news.id %}">{{news.news_title}}</a>
                         </li>
                         {% endfor %}
-                      
+
                     </ul>
 
                 </div>
                 <!-- Grid column -->
 
                 <!-- Grid column -->
-                <div class="col-md-3 mb-md-0 mb-3">
+                <div class="col-md-4 mb-md-0 mb-4">
 
                     <!-- Links -->
-                    <h4>आज तपाईंको भाग्यफल कस्तो छ ?</h4>
+                    <h4>धेरै पटक हेरिएको न्यूजहरु </h4>
 
                     <ul class="list-unstyled">
+                        {% for news in mostviews|slice:'4' %}
                         <li>
-                            <a href="#!">खेलकुद</a>
+                            <a href="{% url 'News:newsdetail' news.id %}">{{news.news_title}}</a>
                         </li>
-                        <li>
-                            <a href="#!">मनोरञ्जन</a>
-                        </li>
-                        <li>
-                            <a href="#!">विज्ञान/प्रविधि</a>
-                        </li>
-                        <li>
-                            <a href="#!">शिक्षा</a>
-                        </li>
+                        {% endfor %}
                     </ul>
 
                 </div>

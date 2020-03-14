@@ -5,39 +5,30 @@ from News import views
 from .models import *
 from django.core.paginator import Paginator
 
+
 class ClientMixin(object):
-    def get_context_data(self,*args,**kwargs):
-        context=super().get_context_data(**kwargs)
-        context['categorys']=Category.objects.all()
-        context['latestnews']=News.objects.order_by('-id')
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categorys'] = Category.objects.all()
+        context['latestnews'] = News.objects.order_by('-id')
+        context['mostviews'] = News.objects.order_by('-views_count')
         return context
 
 
-
-
-
-# class HomeListView(ListView):
-#     template_name='home.html'
-#     model=News
-#     context_object_name='newslist'
-
-#     def get_context_data(self,*args,**kwargs):
-#         context=super().get_context_data(**kwargs)
-#         context['news']=News.objects.all()
-#         context['categorys'] = Category.objects.all()
-#         return context
 def index(request):
     shelf = News.objects.all()
-    latestnews=News.objects.order_by('-id')
+    latestnews = News.objects.order_by('-id')
+    mostviewed = News.objects.order_by('-views_count')
     category = Category.objects.all()
     page_number = request.GET.get('page')
-    paginator = Paginator(shelf, 4)
+    paginator = Paginator(latestnews, 4)
     page_obj = paginator.get_page(page_number)
-    return render(request,'home.html', {'shelf': page_obj, 'categorys': category,'latestnews':latestnews})
+    return render(request, 'home.html', {'shelf': page_obj, 'categorys': category, 'latestnews': latestnews, 'mostviews': mostviewed})
 
 
 
-class BlogView(ClientMixin,TemplateView):
+
+class BlogView(ClientMixin, TemplateView):
     template_name = 'blog.html'
 
     def get_context_data(self, *args, **kwargs):
@@ -45,13 +36,12 @@ class BlogView(ClientMixin,TemplateView):
         news = News.objects.all()
         category_id = self.kwargs['pk']
         category = Category.objects.get(id=category_id)
-        print(category, 'ram')
         context['category'] = category
         context['news'] = news
         return context
 
 
-class NewsDetailView(ClientMixin,DetailView):
+class NewsDetailView(ClientMixin, DetailView):
     template_name = 'detail.html'
     model = News
     context_object_name = 'news'
@@ -63,6 +53,3 @@ class NewsDetailView(ClientMixin,DetailView):
         news.views_count += 1
         news.save()
         return context
-
-
-
