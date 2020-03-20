@@ -21,7 +21,7 @@ def index(request):
     mostviewed = News.objects.order_by('-views_count')
     category = Category.objects.all()
     page_number = request.GET.get('page')
-    paginator = Paginator(latestnews, 4)
+    paginator = Paginator(latestnews, 9)
     page_obj = paginator.get_page(page_number)
     return render(request, 'home.html', {'shelf': page_obj, 'categorys': category, 'latestnews': latestnews, 'mostviews': mostviewed})
 
@@ -53,3 +53,16 @@ class NewsDetailView(ClientMixin, DetailView):
         news.views_count += 1
         news.save()
         return context
+
+
+def createcomment(request):
+        if request.method == 'POST':
+            if request.POST.get('comment'):
+                comment=Comments()
+                comment.Comments= request.POST.get('comment')
+                comment.save()
+                
+                return render(request, 'detail.html')  
+
+        else:
+                return render(request,'detail.html')

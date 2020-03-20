@@ -9,7 +9,6 @@ class TimeStamp(models.Model):
 
 class Category(TimeStamp):
     category_name = models.CharField(max_length=100)
-    category_description = models.TextField()
 
     def __str__(self):
         return self.category_name
@@ -32,4 +31,10 @@ class News(TimeStamp):
 
     def __str__(self):
         return self.news_title
-    
+
+class Comments(TimeStamp):
+    comment = models.TextField(null=True)
+    Comments = models.ForeignKey(News, on_delete = models.CASCADE)
+
+    def __str__(self):
+        return self.comment

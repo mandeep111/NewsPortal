@@ -12,14 +12,15 @@
     
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-2">
 
-                <img class="img-fluid" src="/media/{{ news.news_image }}">
-
-
+               
 
             </div>
             <div class="col-md-8">
+                <img class="img-fluid" src="/media/{{ news.news_image }}">
+
+
                 <div>
                     <span>Views: {{news.views_count}} times.</span>
                     <h2>{{news.news_title}}</h2>
@@ -33,16 +34,23 @@
                 <form>
                     <fieldset>
                      
-                      <div class="form-group">
+                      <form class="form-group" action="comment" method="POST">
                         
-                        <textarea class="form-control" id="exampleTextarea" rows="3" placeholder="Post a comment..."></textarea>
-                        <input type="button" name="" value="Comment">
-                      </div>
+                        <textarea class="form-control" id="exampleTextarea" rows="3" placeholder="Post a comment..." name="comment"></textarea>
+                        <button type="submit" name="Comment" >
+                      </form>
                      
                     </fieldset>
                   </form>
+                <div>
+                    
+                </div>
             </div>
+            <div class="col-md-2">
 
+               
+
+            </div>
 
         </div>
     </div>
