@@ -34,7 +34,7 @@ class News(TimeStamp):
 
 class Comments(TimeStamp):
     comment = models.TextField(null=True)
-    Comments = models.ForeignKey(News, on_delete = models.CASCADE)
+    news = models.ForeignKey(News, on_delete = models.CASCADE)
 
     def __str__(self):
         return self.comment

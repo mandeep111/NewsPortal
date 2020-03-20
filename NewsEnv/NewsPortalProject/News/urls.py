@@ -8,6 +8,7 @@ urlpatterns=[
     path('',views.index,name='home'),
     path('detail/<int:pk>', NewsDetailView.as_view(), name='newsdetail'),
     path('blog/<int:pk>/',BlogView.as_view(),name='blog'),
-    path('detail', views.createcomment, name='newsdetail')
+    # path('detail', views.createcomment, name='newsdetail')
+    path('comment/<int:pk>/',CommentCreateView.as_view(),name='commentadd')
   
 ]

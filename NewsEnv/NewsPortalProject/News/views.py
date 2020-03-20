@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.views.generic import *
 from News import views
 from .models import *
+from .forms import *
 from django.core.paginator import Paginator
 
 
@@ -47,22 +48,43 @@ class NewsDetailView(ClientMixin, DetailView):
     context_object_name = 'news'
 
     def get_context_data(self, *args, **kwargs):
+        
         context = super().get_context_data(**kwargs)
+        context['form']=CommentForm
+        
         news_id = self.kwargs['pk']
+    
         news = News.objects.get(id=news_id)
         news.views_count += 1
         news.save()
         return context
 
+class CommentCreateView(CreateView):
+    template_name='commentcreate.html'
+    form_class=CommentForm
+    success_url='/'
 
-def createcomment(request):
-        if request.method == 'POST':
-            if request.POST.get('comment'):
-                comment=Comments()
-                comment.Comments= request.POST.get('comment')
-                comment.save()
+    def form_valid(self,form):
+        news_id=self.kwargs['pk']
+        print(news_id,'ram')
+        news=News.objects.get(id=news_id)
+        form.instance.news=news
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        news_id=self.kwargs['pk']
+        return '/detail/'+str(news_id)
+
+
+
+# def createcomment(request):
+#         if request.method == 'POST':
+#             if request.POST.get('comment'):
+#                 comment=Comments()
+#                 comment.Comments= request.POST.get('comment')
+#                 comment.save()
                 
-                return render(request, 'detail.html')  
+#                 return render(request, 'detail.html')  
 
-        else:
-                return render(request,'detail.html')
+#         else:
+#                 return render(request,'detail.html')

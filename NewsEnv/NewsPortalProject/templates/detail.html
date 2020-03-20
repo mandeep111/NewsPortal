@@ -31,7 +31,7 @@
                     <a href="/" class="btn btn-primary">Go To Home</a>
                 </div>
                 <hr>
-                <form>
+                <!-- <form>
                     <fieldset>
                      
                       <form class="form-group" action="comment" method="POST">
@@ -41,10 +41,22 @@
                       </form>
                      
                     </fieldset>
-                  </form>
-                <div>
-                    
-                </div>
+                  </form> -->
+                    {% for comment in news.comments_set.all %}
+                    <p>User says ({{comment.created_date|date}}):<strong>{{comment.comment}}</strong></p>
+                    {% endfor %}
+                  <form method="POST" action="{% url 'News:commentadd' news.id %}">
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <button class="btn btn-primary">Comment</button>
+                
+                </form>
+                <hr>
+
+        
+               
+                  
+               
             </div>
             <div class="col-md-2">
 

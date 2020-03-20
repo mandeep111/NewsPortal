@@ -10,17 +10,19 @@
     <div class="row">
         {% for news in category.news_set.all %}
 
-        <div class="col-sm-4">
 
-            <img class="img-fluid" src="{{news.news_image.url}}" style="height: 220px;">
-
+        <div class="col-sm-3">
+            <a href="/detail/{{news.id}}">
+                <img class="img-fluid" src="{{news.news_image.url}}" style="height: 220px;">
+            </a>
             <hr>
-
-            <h2>{{news.news_title}}</h2>
-            <span>{{news.SubCategory.sub_name}}</span><br>
-            <span>{{news.created_date | date}}</span>
-            <p>{{news.news_content | truncatewords:20}}</p>
-            <a href="/detail/{{news.id}}" class="btn btn-success btn-lg">More</a>
+            <a class="links" href="/detail/{{news.id}}">
+                <h5>{{news.news_title}}</h5>
+            </a>
+            <!-- <span>{{news.SubCategory.sub_name}}</span><br> -->
+            <span>{{news.created_date | date}}</span><br>
+            <span>{{news.news_content | truncatewords:10}}</span><br>
+            <a href="/detail/{{news.id}}" class="btn btn-primary btn-lg">More</a>
             <hr>
         </div>
         {% endfor %}
